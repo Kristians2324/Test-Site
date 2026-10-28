@@ -1,171 +1,138 @@
+/**
+ * ============================================================================
+ * AetherStudio Web App — Controller & Interactive Drawer Templates
+ * ============================================================================
+ */
+
 (function () {
-  const MENU_ITEMS = [
-    {
-      id: 'country-loaf',
-      category: 'bread',
-      categoryLabel: 'Naturally Leavened Loaf',
-      name: 'Country Sourdough',
-      price: 9.5,
-      weight: '850g loaf',
-      availability: 'Baked at 7:30 AM',
-      description:
-        'Our daily hearth loaf made with organic Washington bread flour, stone-ground Red Fife whole wheat, water, and sea salt. Dark caramelized crust with an open, custard-like crumb.',
-      ingredients: 'Unbleached wheat flour, whole Red Fife wheat, water, sea salt.',
-      optionTitle: 'Preparation',
-      options: ['Whole Loaf (Unsliced)', 'Machine Sliced — Standard', 'Cut in Half'],
+  const PRODUCTS = {
+    'aether-one': {
+      name: 'Aether One Studio',
+      category: 'Open-Back Planar Magnetic Headphones',
+      price: '$549',
+      emoji: '🎧',
+      gradient: 'gradient-indigo',
+      summary:
+        'Engineered with ultra-thin 2-micron nano-diaphragm drivers and CNC-milled magnesium earcups for zero-resonance reference monitoring.',
+      specs: [
+        { label: 'Driver Type', value: '98mm Planar Magnetic' },
+        { label: 'Frequency Response', value: '5 Hz – 55,000 Hz' },
+        { label: 'Impedance', value: '32 Ω (Mobile & Desktop)' },
+        { label: 'Total Harmonic Distortion', value: '< 0.04% @ 1 kHz' },
+        { label: 'Weight', value: '365g (Magnesium Alloy)' },
+        { label: 'Connector', value: 'Dual 3.5mm + 4.4mm Balanced' },
+      ],
+      finishes: ['Obsidian Anodized', 'Titanium Raw', 'Cobalt Limited'],
     },
-    {
-      id: 'seeded-rye',
-      category: 'bread',
-      categoryLabel: 'Naturally Leavened Loaf',
-      name: 'Toasted Sesame & Spelt',
-      price: 11.0,
-      weight: '850g loaf',
-      availability: 'Baked at 8:00 AM',
-      description:
-        'A hearty, aromatic porridge loaf folded with toasted white and black sesame seeds, flax, sunflower kernels, and 30% whole grain spelt flour.',
-      ingredients: 'Wheat flour, whole spelt, toasted sesame, sunflower seeds, golden flax, water, sea salt.',
-      optionTitle: 'Preparation',
-      options: ['Whole Loaf (Unsliced)', 'Machine Sliced — Standard'],
+    'pulse-dac': {
+      name: 'Pulse R2R Reference DAC',
+      category: 'Discrete 24-Bit Resistor Ladder DAC & Amp',
+      price: '$329',
+      emoji: '🎛️',
+      gradient: 'gradient-emerald',
+      summary:
+        'True balanced R2R resistor network with femtosecond crystal clock, zero-feedback Class-A headphone stage, and USB-C plug-and-play.',
+      specs: [
+        { label: 'Architecture', value: 'Fully Balanced 24-Bit R2R' },
+        { label: 'Max Output Power', value: '2,400 mW @ 32 Ω' },
+        { label: 'Dynamic Range', value: '127 dB SNR' },
+        { label: 'Sample Rates', value: 'PCM 768kHz / DSD512' },
+        { label: 'Inputs', value: 'USB-C, Optical, Coax' },
+        { label: 'Chassis', value: 'Bead-Blasted Aluminum' },
+      ],
+      finishes: ['Stealth Matte Black', 'Silver Billet'],
     },
-    {
-      id: 'baguette',
-      category: 'bread',
-      categoryLabel: 'Hearth Bread',
-      name: 'Tradition Baguette',
-      price: 5.25,
-      weight: '320g',
-      availability: 'Baked at 7:00 AM & 11:30 AM',
-      description:
-        'Long-fermented French-style baguette mixed with a poolish pre-ferment and baked directly on stone for a crisp, shattered crust.',
-      ingredients: 'Organic bread flour, water, sea salt, sourdough culture, yeast.',
-      optionTitle: 'Warming Note',
-      options: ['Room Temperature', 'Paper Bag Only (Crisp Crust)'],
+    'monolith-speaker': {
+      name: 'Monolith Air Monitors',
+      category: 'Active Cardioid Nearfield Studio Pair',
+      price: '$899',
+      emoji: '🔊',
+      gradient: 'gradient-amber',
+      summary:
+        'Beryllium folded-ribbon tweeters paired with acoustic cardioid rear vents eliminate desk bounce and rear-wall bass buildup.',
+      specs: [
+        { label: 'Tweeter', value: 'Beryllium Folded Ribbon' },
+        { label: 'Woofer', value: '6.5" Woven Carbon Cone' },
+        { label: 'Amplification', value: 'Dual 180W Class-D Bi-Amp' },
+        { label: 'Room Calibration', value: 'Built-in 32-bit DSP' },
+        { label: 'Max SPL', value: '112 dB Peak (Pair)' },
+        { label: 'Wireless / Wired', value: 'XLR, TRS, USB-C, Wi-Fi' },
+      ],
+      finishes: ['Studio Anthracite', 'Nordic Birch'],
     },
-    {
-      id: 'cardamom-bun',
-      category: 'pastry',
-      categoryLabel: 'Morning Viennoiserie',
-      name: 'Cardamom Knot',
-      price: 5.5,
-      weight: 'Single pastry',
-      availability: 'Morning bake',
-      description:
-        'Brioche dough laminated with cultured butter and freshly mortar-crushed green cardamom pods, twisted by hand and finished with pearl sugar and citrus syrup.',
-      ingredients: 'Wheat flour, cultured butter, milk, eggs, cane sugar, green cardamom, sea salt.',
-      optionTitle: 'Serving',
-      options: ['As Is', 'Warmed at Pickup'],
-    },
-    {
-      id: 'kouign-amann',
-      category: 'pastry',
-      categoryLabel: 'Morning Viennoiserie',
-      name: 'Salted Kouign-Amann',
-      price: 5.75,
-      weight: 'Single pastry',
-      availability: 'Morning bake',
-      description:
-        'Crisp, caramelized Breton pastry folded with flaky sea salt and organic cane sugar. Crisp brittle exterior with tender, buttery layers inside.',
-      ingredients: 'Wheat flour, cultured butter, cane sugar, water, sea salt, yeast.',
-      optionTitle: 'Serving',
-      options: ['Room Temperature', 'Warmed at Pickup'],
-    },
-    {
-      id: 'almond-croissant',
-      category: 'pastry',
-      categoryLabel: 'Morning Viennoiserie',
-      name: 'Twice-Baked Almond Croissant',
-      price: 6.25,
-      weight: 'Single pastry',
-      availability: 'Limited daily batch',
-      description:
-        'Croissant soaked in orange-blossom rum syrup, filled and topped with house-ground California almond frangipane and toasted sliced almonds.',
-      ingredients: 'Wheat flour, butter, almonds, eggs, sugar, milk, dark rum, orange blossom water.',
-      optionTitle: 'Serving',
-      options: ['Room Temperature', 'Warmed at Pickup'],
-    },
-    {
-      id: 'pour-over',
-      category: 'coffee',
-      categoryLabel: 'Filter Coffee',
-      name: 'Single Origin Pour Over',
-      price: 5.0,
-      weight: '12 oz cup',
-      availability: 'Brewed to order',
-      description:
-        'Currently pouring Worka Sakaro from Gedeb, Ethiopia. Washed process with clean notes of bergamot, white peach, and black tea.',
-      ingredients: 'Roasted Arabica coffee, filtered water.',
-      optionTitle: 'Temperature',
-      options: ['Hot (12 oz)', 'Flash Chilled over Ice'],
-    },
-    {
-      id: 'cortado',
-      category: 'coffee',
-      categoryLabel: 'Espresso Bar',
-      name: 'Gibraltar / Cortado',
-      price: 4.5,
-      weight: '4.5 oz',
-      availability: 'Made to order',
-      description:
-        'Equal parts double-shot seasonal espresso and lightly textured steamed milk.',
-      ingredients: 'Espresso, choice of milk.',
-      optionTitle: 'Milk Choice',
-      options: ['Whole Jersey Milk', 'Oat Milk', 'Almond Milk'],
-    },
-    {
-      id: 'whole-bean',
-      category: 'coffee',
-      categoryLabel: 'Whole Bean Retail Bag',
-      name: 'Morrow House Blend (12 oz)',
-      price: 18.5,
-      weight: '340g bag',
-      availability: 'Roasted Tuesdays',
-      description:
-        'A balanced, sweet daily coffee combining washed Colombian Huila and natural Brazilian lots. Milk chocolate, roasted hazelnut, and red apple.',
-      ingredients: '100% specialty Arabica coffee.',
-      optionTitle: 'Grind Setting',
-      options: ['Whole Bean', 'Ground for Drip / Filter', 'Ground for French Press', 'Ground for Espresso'],
-    },
-  ];
+  };
 
-  let currentCategory = 'all';
-  let activeModalQuantity = 1;
-  let activeModalItem = null;
-
-  const orderBag = [
-    {
-      name: 'Country Sourdough',
-      option: 'Whole Loaf (Unsliced)',
-      qty: 1,
-      price: 9.5,
-    },
-    {
-      name: 'Cardamom Knot',
-      option: 'As Is',
-      qty: 1,
-      price: 5.5,
-    },
-  ];
-
-  const menuGrid = document.getElementById('menuGrid');
-  const bagCountEl = document.getElementById('bagCount');
+  // DOM References for Telemetry Bar
+  const modeBadge = document.getElementById('modeBadge');
+  const modeLabel = document.getElementById('modeLabel');
+  const metricViewport = document.getElementById('metricViewport');
+  const metricDeltaY = document.getElementById('metricDeltaY');
+  const metricVelocity = document.getElementById('metricVelocity');
+  const forceMobileToggle = document.getElementById('forceMobileToggle');
+  const forceMobileText = document.getElementById('forceMobileText');
+  const showcaseActiveMode = document.getElementById('showcaseActiveMode');
+  const miniDesktopCard = document.getElementById('miniDesktopCard');
+  const miniMobileCard = document.getElementById('miniMobileCard');
   const toastContainer = document.getElementById('toastContainer');
 
+  // Initialize the Cross-Platform Drawer
   const drawer = new window.CrossPlatformDrawer({
     dialogEl: document.getElementById('crossPlatformDrawer'),
+    onTelemetry(data) {
+      if (metricViewport) {
+        metricViewport.textContent = `${data.viewportWidth} × ${data.viewportHeight}px`;
+      }
+      if (metricDeltaY) {
+        metricDeltaY.textContent = `${data.deltaY}px`;
+      }
+      if (metricVelocity) {
+        metricVelocity.textContent = `${data.velocity.toFixed(2)} px/ms`;
+      }
+
+      if (modeBadge && modeLabel) {
+        modeBadge.classList.toggle('is-mobile', data.isMobile);
+        if (data.isMobile) {
+          modeLabel.textContent = data.forceMobile
+            ? 'Mobile Bottom Sheet (Simulated <768px)'
+            : 'Mobile Bottom Sheet (<768px)';
+        } else {
+          modeLabel.textContent = 'Desktop Modal Dialog (≥768px)';
+        }
+      }
+
+      if (showcaseActiveMode) {
+        showcaseActiveMode.textContent = data.isMobile
+          ? 'Active: Bottom Sheet (<768px)'
+          : 'Active: Centered Modal (≥768px)';
+      }
+
+      if (miniDesktopCard && miniMobileCard) {
+        miniDesktopCard.classList.toggle('is-active-mode', !data.isMobile);
+        miniMobileCard.classList.toggle('is-active-mode', data.isMobile);
+      }
+    },
   });
 
-  function formatPrice(num) {
-    return `$${num.toFixed(2)}`;
+  // Expose instance for debugging in DevTools console
+  window.aetherDrawer = drawer;
+
+  // Handle "Simulate Mobile (<768px)" Toggle Button
+  if (forceMobileToggle) {
+    forceMobileToggle.addEventListener('click', () => {
+      const active = drawer.setForceMobilePreview();
+      forceMobileToggle.classList.toggle('is-active', active);
+      forceMobileText.textContent = active
+        ? 'Exit Mobile Simulation'
+        : 'Simulate Mobile (<768px)';
+      showToast(
+        active
+          ? '📱 Switched to Mobile Bottom Sheet mode (<768px behavior)'
+          : '🖥️ Restored Automatic Breakpoint Detection (768px)'
+      );
+    });
   }
 
-  function updateBagBadge() {
-    const totalCount = orderBag.reduce((sum, item) => sum + item.qty, 0);
-    if (bagCountEl) {
-      bagCountEl.textContent = String(totalCount);
-    }
-  }
-
+  // Toast helper
   function showToast(message) {
     if (!toastContainer) return;
     const toast = document.createElement('div');
@@ -174,328 +141,324 @@
     toastContainer.appendChild(toast);
     setTimeout(() => {
       toast.style.opacity = '0';
-      toast.style.transition = 'opacity 0.2s ease';
+      toast.style.transform = 'translateY(8px)';
+      toast.style.transition = 'all 0.2s ease';
       setTimeout(() => toast.remove(), 220);
-    }, 2600);
+    }, 2800);
   }
 
-  function renderMenu() {
-    if (!menuGrid) return;
-    const items =
-      currentCategory === 'all'
-        ? MENU_ITEMS
-        : MENU_ITEMS.filter((item) => item.category === currentCategory);
-
-    menuGrid.innerHTML = items
-      .map(
-        (item) => `
-        <article
-          class="menu-item"
-          data-item-id="${item.id}"
-          tabindex="0"
-          role="button"
-          aria-label="${item.name}, ${formatPrice(item.price)}"
-        >
-          <div>
-            <div class="menu-item__top">
-              <h2 class="menu-item__title">${item.name}</h2>
-              <span class="menu-item__price">${formatPrice(item.price)}</span>
-            </div>
-            <p class="menu-item__desc">${item.description}</p>
-          </div>
-          <div class="menu-item__footer">
-            <span>${item.weight} · ${item.availability}</span>
-            <span class="menu-item__action">Select</span>
-          </div>
-        </article>
-      `
-      )
-      .join('');
-  }
-
-  function openItemDrawer(itemId, triggerEl) {
-    const item = MENU_ITEMS.find((entry) => entry.id === itemId);
-    if (!item) return;
-
-    activeModalItem = item;
-    activeModalQuantity = 1;
+  // Build Drawer Templates
+  function openProductDrawer(productId, triggerEl) {
+    const product = PRODUCTS[productId] || PRODUCTS['aether-one'];
+    const isMobile = drawer.isMobileMode();
 
     const bodyHTML = `
-      <p class="drawer-desc">${item.description}</p>
-
-      <div class="drawer-meta-row">
-        <span>Weight: ${item.weight}</span>
-        <span>Schedule: ${item.availability}</span>
+      <div class="gesture-hint-banner">
+        <span>${isMobile ? '👆' : '🖱️'}</span>
+        <span>
+          ${
+            isMobile
+              ? '<strong>Mobile Sheet Active:</strong> Drag handle or pull down from top of scroll to dismiss. Flick up or tap ⤢ to expand!'
+              : '<strong>Desktop Modal Active (≥768px):</strong> Click outside on the backdrop or press <code>Esc</code> to dismiss. Resize window &lt;768px to morph into a Bottom Sheet!'
+          }
+        </span>
       </div>
 
-      <div class="field-group">
-        <label class="field-label">${item.optionTitle}</label>
-        <div class="choice-list" role="radiogroup" aria-label="${item.optionTitle}">
-          ${item.options
-            .map(
-              (opt, idx) => `
-              <button
-                type="button"
-                class="choice-btn ${idx === 0 ? 'is-selected' : ''}"
-                data-choice-btn
-                value="${opt}"
-              >
-                ${opt}
-              </button>
-            `
-            )
-            .join('')}
+      <div class="drawer-hero-banner ${product.gradient}">
+        <div class="drawer-hero-icon" aria-hidden="true">${product.emoji}</div>
+        <div>
+          <div style="font-size: 0.78rem; color: #cbd5e1; font-weight: 600;">${product.category}</div>
+          <div style="font-size: 1.35rem; font-weight: 800; margin: 2px 0;">${product.name}</div>
+          <div style="font-size: 1.05rem; color: #a5b4fc; font-weight: 700;">${product.price} USD • In Stock</div>
         </div>
       </div>
 
-      <div class="field-group">
-        <label class="field-label" for="itemNoteInput">Special Instructions (Optional)</label>
-        <input
-          type="text"
-          id="itemNoteInput"
-          class="text-input"
-          placeholder="e.g., extra paper bag, pickup after 1:00 PM"
-        />
+      <p style="color: var(--text-secondary); font-size: 0.92rem;">
+        ${product.summary}
+      </p>
+
+      <h3 class="drawer-section-title">Select Finish</h3>
+      <div class="option-pills" role="radiogroup" aria-label="Select Finish">
+        ${product.finishes
+          .map(
+            (finish, i) => `
+          <button type="button" class="option-pill ${i === 0 ? 'is-selected' : ''}" data-option-pill>
+            ${finish}
+          </button>
+        `
+          )
+          .join('')}
       </div>
 
-      <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 12px;">
-        Ingredients: ${item.ingredients}
-      </p>
+      <h3 class="drawer-section-title">Technical Specifications (Scrollable Content Test)</h3>
+      <div class="spec-grid">
+        ${product.specs
+          .map(
+            (s) => `
+          <div class="spec-box">
+            <span>${s.label}</span>
+            <strong>${s.value}</strong>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+
+      <h3 class="drawer-section-title">Included in the Box</h3>
+      <ul style="padding-left: 18px; color: var(--text-secondary); font-size: 0.88rem; display: grid; gap: 6px;">
+        <li>${product.name} Hardware Unit with serialized calibration certificate</li>
+        <li>Braided OFC Silver-Plated Acoustic Cable (2.0m)</li>
+        <li> Waterproof ballistic nylon travel case</li>
+        <li>3-Year International Studio Hardware Warranty</li>
+      </ul>
     `;
 
     const footerHTML = `
-      <div class="qty-control" aria-label="Quantity">
-        <button type="button" class="qty-btn" data-qty-change="-1" aria-label="Decrease quantity">−</button>
-        <span class="qty-value" id="modalQtyValue">1</span>
-        <button type="button" class="qty-btn" data-qty-change="1" aria-label="Increase quantity">+</button>
-      </div>
-      <button type="button" class="primary-action-btn" id="confirmAddItemBtn">
-        Add to Order — ${formatPrice(item.price)}
+      <button type="button" class="btn btn-ghost btn-sm" data-drawer-close>Cancel</button>
+      <button type="button" class="btn btn-primary btn-sm" data-drawer-action="reserve" data-product-name="${product.name}">
+        <span>⚡</span> Add ${product.name} (${product.price})
       </button>
     `;
 
     drawer.open({
-      title: item.name,
-      subtitle: `${item.categoryLabel} · ${formatPrice(item.price)}`,
+      title: product.name,
+      subtitle: `${product.category} • ${product.price}`,
       bodyHTML,
       footerHTML,
       triggerEl,
     });
   }
 
-  function openBagDrawer(triggerEl) {
-    const subtotal = orderBag.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-    const itemsMarkup =
-      orderBag.length === 0
-        ? `<p class="drawer-desc">Your pickup order is currently empty.</p>`
-        : `
-          <div class="bag-list">
-            ${orderBag
-              .map(
-                (item, index) => `
-                <div class="bag-row">
-                  <div>
-                    <div><strong>${item.qty} × ${item.name}</strong></div>
-                    <div class="bag-row__meta">${item.option}${item.note ? ` · "${item.note}"` : ''}</div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 10px;">
-                    <span>${formatPrice(item.price * item.qty)}</span>
-                    <button type="button" class="text-btn" data-remove-bag-index="${index}" style="font-size: 0.78rem;">Remove</button>
-                  </div>
-                </div>
-              `
-              )
-              .join('')}
-            <div class="bag-total">
-              <span>Total due at counter</span>
-              <span>${formatPrice(subtotal)}</span>
-            </div>
-          </div>
-        `;
-
+  function openFeedbackFormDrawer(triggerEl) {
     const bodyHTML = `
-      ${itemsMarkup}
+      <div class="gesture-hint-banner">
+        <span>⌨️</span>
+        <span>
+          <strong>Mobile Virtual Keyboard Optimization:</strong> Inputs use <code>16px</code> font size (preventing iOS Safari auto-zoom) and <code>window.visualViewport</code> listeners so the sheet adjusts above the on-screen keyboard.
+        </span>
+      </div>
 
-      <form id="checkoutForm">
-        <div class="field-group">
-          <label class="field-label" for="pickupNameInput">Name for Pickup</label>
-          <input
-            type="text"
-            id="pickupNameInput"
-            class="text-input"
-            placeholder="First and last name"
-            required
-          />
+      <form id="drawerDemoForm">
+        <div class="form-group">
+          <label class="form-label" for="studioNameInput">Your Name or Studio</label>
+          <input class="form-input" id="studioNameInput" type="text" placeholder="e.g. SoundLab Mastering" required />
         </div>
 
-        <div class="field-group">
-          <label class="field-label" for="pickupWindowInput">Pickup Window</label>
-          <div class="choice-list">
-            <button type="button" class="choice-btn is-selected" data-choice-btn>8:30 AM – 10:30 AM</button>
-            <button type="button" class="choice-btn" data-choice-btn>10:30 AM – 1:00 PM</button>
-            <button type="button" class="choice-btn" data-choice-btn>1:00 PM – 3:30 PM</button>
-          </div>
+        <div class="form-group">
+          <label class="form-label" for="hardwareModelSelect">Hardware Model of Interest</label>
+          <select class="form-select" id="hardwareModelSelect">
+            <option value="Aether One Studio ($549)">Aether One Studio ($549)</option>
+            <option value="Pulse R2R Reference DAC ($329)">Pulse R2R Reference DAC ($329)</option>
+            <option value="Monolith Air Monitors ($899)">Monolith Air Monitors ($899)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="acousticNotesInput">Acoustic Notes / Questions</label>
+          <textarea class="form-textarea" id="acousticNotesInput" rows="3" placeholder="Test typing here on mobile or desktop..."></textarea>
         </div>
       </form>
     `;
 
     const footerHTML = `
-      <button type="button" class="secondary-btn" data-drawer-close>Continue Browsing</button>
-      <button type="submit" form="checkoutForm" class="primary-action-btn" ${orderBag.length === 0 ? 'disabled' : ''}>
-        Reserve for Counter Pickup
+      <button type="button" class="btn btn-ghost btn-sm" data-drawer-close>Close</button>
+      <button type="submit" form="drawerDemoForm" class="btn btn-primary btn-sm">
+        Submit Reservation Request
       </button>
     `;
 
     drawer.open({
-      title: 'Your Pickup Order',
-      subtitle: '412 Morrow Street · Pay at Counter',
+      title: 'Studio Audition & Input Test',
+      subtitle: 'Tests focus trapping, Esc key & mobile visualViewport keyboard',
       bodyHTML,
       footerHTML,
       triggerEl,
     });
   }
 
-  function openLocationDrawer(triggerEl) {
+  function openArchitectureDrawer(triggerEl) {
     const bodyHTML = `
-      <p class="drawer-desc">
-        We are located on the corner of Morrow Street and SE 5th Avenue, half a block north of the hardware annex.
-      </p>
-
-      <table class="info-table">
-        <tbody>
-          <tr>
-            <td>Wednesday – Friday</td>
-            <td>7:00 AM – 4:00 PM</td>
-          </tr>
-          <tr>
-            <td>Saturday – Sunday</td>
-            <td>7:30 AM – 3:00 PM</td>
-          </tr>
-          <tr>
-            <td>Monday – Tuesday</td>
-            <td>Closed (Grain Milling)</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="field-group">
-        <span class="field-label">Oven Schedule</span>
-        <p style="font-size: 0.87rem; color: var(--text-muted);">
-          Morning pastries and baguettes are on the counter at 7:00 AM. Country and seeded sourdough loaves come out of the deck oven at 7:30 AM and 8:00 AM.
-        </p>
+      <div class="gesture-hint-banner">
+        <span>📐</span>
+        <span>
+          <strong>Zero External Libraries:</strong> Built strictly with native HTML5, CSS3, and ES6 Web APIs.
+        </span>
       </div>
 
-      <div class="field-group" style="margin-bottom: 0;">
-        <span class="field-label">Parking &amp; Pickup</span>
-        <p style="font-size: 0.87rem; color: var(--text-muted);">
-          15-minute loading zones are available directly in front of the bakery entrance on Morrow Street. Pre-orders may be collected at the side window without waiting in the espresso line.
-        </p>
+      <h3 class="drawer-section-title" style="margin-top: 4px;">1. Adaptive Presentation (&ge;768px vs &lt;768px)</h3>
+      <p style="color: var(--text-secondary); font-size: 0.88rem;">
+        CSS <code>@media (min-width: 768px)</code> and JS <code>window.matchMedia('(min-width: 768px)')</code> coordinate presentation in real time:
+      </p>
+      <pre class="code-snippet">/* Mobile (<768px): Bottom Sheet */
+.cp-drawer__positioner { align-items: flex-end; }
+.cp-drawer__surface {
+  border-radius: 24px 24px 0 0;
+  transform: translate3d(0, var(--drawer-drag-y, 100%), 0);
+}
+
+/* Desktop (>=768px): Centered Modal Dialog */
+@media (min-width: 768px) {
+  .cp-drawer__positioner { align-items: center; padding: 24px; }
+  .cp-drawer__surface {
+    max-width: 560px;
+    border-radius: 20px;
+    transform: translate3d(0, var(--drawer-drag-y, 16px), 0)
+               scale(var(--drawer-modal-scale, 0.96));
+  }
+}</pre>
+
+      <h3 class="drawer-section-title">2. Pointer Events, Flick Velocity &amp; Rubber-Banding</h3>
+      <p style="color: var(--text-secondary); font-size: 0.88rem;">
+        On mobile (<code>&lt;768px</code>), <code>pointermove</code> tracks finger position 1:1 via <code>requestAnimationFrame</code>. A sliding 80ms sample window calculates flick velocity ($v = \\Delta y / \\Delta t$). Pulling upward past <code>0px</code> applies exponential rubber-band damping:
+      </p>
+      <pre class="code-snippet">// Upward overscroll rubber-band resistance
+if (activeDeltaY &lt; 0) {
+  const pull = Math.abs(activeDeltaY);
+  visualDeltaY = -56 * (1 - Math.exp(-pull / 160));
+}
+// Flick or distance dismissal check on pointerup
+if (velocity &gt; 0.45 || dragRatio &gt; 0.33) {
+  this.close('swipe-dismiss');
+}</pre>
+
+      <h3 class="drawer-section-title">3. Nested Scroll-to-Drag Handoff</h3>
+      <p style="color: var(--text-secondary); font-size: 0.88rem;">
+        When swiping inside the scrollable drawer body, native scrolling proceeds normally while <code>body.scrollTop &gt; 0</code>. The instant <code>scrollTop &lt;= 0</code> and the user pulls downward, the gesture seamlessly hands off to dragging the bottom sheet down.
+      </p>
+    `;
+
+    const footerHTML = `
+      <button type="button" class="btn btn-secondary btn-sm" id="drawerToggleModeInside">
+        📱 Toggle Mobile/Desktop Preview
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" data-drawer-close>Got It</button>
+    `;
+
+    drawer.open({
+      title: 'Implementation & Architecture',
+      subtitle: 'How the Cross-Platform Native Drawer works under the hood',
+      bodyHTML,
+      footerHTML,
+      triggerEl,
+    });
+  }
+
+  function openQuickSettingsDrawer(triggerEl) {
+    const isMobile = drawer.isMobileMode();
+    const bodyHTML = `
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 14px;">
+        Test the live adaptive state and snap points directly from inside the drawer:
+      </p>
+
+      <div class="spec-grid">
+        <div class="spec-box">
+          <span>Current Mode</span>
+          <strong>${isMobile ? 'Mobile Sheet (<768px)' : 'Desktop Modal (≥768px)'}</strong>
+        </div>
+        <div class="spec-box">
+          <span>Viewport Width</span>
+          <strong>${window.innerWidth}px</strong>
+        </div>
+        <div class="spec-box">
+          <span>Dismiss Velocity</span>
+          <strong>0.45 px/ms</strong>
+        </div>
+        <div class="spec-box">
+          <span>Dismiss Distance</span>
+          <strong>33% of Sheet Height</strong>
+        </div>
+      </div>
+
+      <div style="display: grid; gap: 10px; margin-top: 16px;">
+        <button type="button" class="btn btn-secondary btn-block" id="drawerToggleModeInside">
+          🔄 Switch Between Desktop Modal &amp; Mobile Sheet
+        </button>
+        ${
+          isMobile
+            ? `<button type="button" class="btn btn-ghost btn-block" id="drawerToggleSnapInside">
+                 ⤢ Toggle Mobile Sheet Snap Height (Default / Full)
+               </button>`
+            : ''
+        }
       </div>
     `;
 
     const footerHTML = `
-      <button type="button" class="primary-action-btn" data-drawer-close>Close</button>
+      <button type="button" class="btn btn-primary btn-sm" data-drawer-close>Done</button>
     `;
 
     drawer.open({
-      title: 'Hours & Pickup Information',
-      subtitle: '412 Morrow Street, Portland',
+      title: 'Drawer Interactive Controls',
+      subtitle: 'Inspect & toggle cross-platform behavior live',
       bodyHTML,
       footerHTML,
       triggerEl,
     });
   }
 
+  // Delegate clicks across the page and inside the drawer
   document.addEventListener('click', (e) => {
-    const tabBtn = e.target.closest('.tab-btn[data-category]');
-    if (tabBtn) {
-      currentCategory = tabBtn.getAttribute('data-category') || 'all';
-      document.querySelectorAll('.tab-btn').forEach((btn) => btn.classList.remove('is-active'));
-      tabBtn.classList.add('is-active');
-      renderMenu();
-      return;
-    }
-
-    const menuCard = e.target.closest('.menu-item[data-item-id]');
-    if (menuCard) {
-      openItemDrawer(menuCard.getAttribute('data-item-id'), menuCard);
-      return;
-    }
-
+    // 1. Trigger buttons/cards that open the drawer
     const trigger = e.target.closest('[data-drawer-trigger]');
     if (trigger) {
-      const target = trigger.getAttribute('data-drawer-trigger');
-      if (target === 'bag') {
-        openBagDrawer(trigger);
-      } else if (target === 'location') {
-        openLocationDrawer(trigger);
+      const type = trigger.getAttribute('data-drawer-trigger');
+      const productId = trigger.getAttribute('data-product-id') || 'aether-one';
+
+      if (type === 'product-detail' || type === 'Preorder') {
+        openProductDrawer(productId, trigger);
+      } else if (type === 'feedback-form') {
+        openFeedbackFormDrawer(trigger);
+      } else if (type === 'architecture') {
+        openArchitectureDrawer(trigger);
+      } else if (type === 'quick-settings') {
+        openQuickSettingsDrawer(trigger);
       }
       return;
     }
 
-    const choiceBtn = e.target.closest('[data-choice-btn]');
-    if (choiceBtn) {
-      const list = choiceBtn.parentElement;
-      if (list) {
-        list.querySelectorAll('[data-choice-btn]').forEach((el) => el.classList.remove('is-selected'));
+    // 2. Option pills inside the drawer
+    const pill = e.target.closest('[data-option-pill]');
+    if (pill) {
+      const group = pill.parentElement;
+      if (group) {
+        group.querySelectorAll('[data-option-pill]').forEach((el) => el.classList.remove('is-selected'));
       }
-      choiceBtn.classList.add('is-selected');
+      pill.classList.add('is-selected');
       return;
     }
 
-    const qtyBtn = e.target.closest('[data-qty-change]');
-    if (qtyBtn && activeModalItem) {
-      const delta = parseInt(qtyBtn.getAttribute('data-qty-change'), 10) || 0;
-      activeModalQuantity = Math.max(1, Math.min(12, activeModalQuantity + delta));
-      const qtyEl = document.getElementById('modalQtyValue');
-      const addBtn = document.getElementById('confirmAddItemBtn');
-      if (qtyEl) qtyEl.textContent = String(activeModalQuantity);
-      if (addBtn) {
-        addBtn.textContent = `Add to Order — ${formatPrice(activeModalItem.price * activeModalQuantity)}`;
-      }
-      return;
-    }
-
-    if (e.target.closest('#confirmAddItemBtn') && activeModalItem) {
-      const selectedChoice =
-        document.querySelector('#drawerBody .choice-btn.is-selected')?.textContent.trim() ||
-        activeModalItem.options[0];
-      const note = document.getElementById('itemNoteInput')?.value.trim() || '';
-
-      orderBag.push({
-        name: activeModalItem.name,
-        option: selectedChoice,
-        note,
-        qty: activeModalQuantity,
-        price: activeModalItem.price,
-      });
-
-      updateBagBadge();
-      drawer.close('item-added');
-      showToast(`Added ${activeModalQuantity} × ${activeModalItem.name} to your order.`);
-      return;
-    }
-
-    const removeBtn = e.target.closest('[data-remove-bag-index]');
-    if (removeBtn) {
-      const idx = parseInt(removeBtn.getAttribute('data-remove-bag-index'), 10);
-      if (!Number.isNaN(idx) && orderBag[idx]) {
-        orderBag.splice(idx, 1);
-        updateBagBadge();
-        openBagDrawer(document.getElementById('openBagBtn'));
-      }
-      return;
-    }
-
+    // 3. Close button inside drawer footer
     if (e.target.closest('[data-drawer-close]')) {
-      drawer.close('button-close');
+      drawer.close('footer-close');
+      return;
+    }
+
+    // 4. Reserve action inside drawer
+    const reserveBtn = e.target.closest('[data-drawer-action="reserve"]');
+    if (reserveBtn) {
+      const name = reserveBtn.getAttribute('data-product-name') || 'Hardware Unit';
+      drawer.close('action-complete');
+      showToast(`✅ Reserved ${name}! Confirmation sent.`);
+      return;
+    }
+
+    // 5. Toggle Mobile/Desktop mode from inside the drawer
+    if (e.target.closest('#drawerToggleModeInside')) {
+      if (forceMobileToggle) forceMobileToggle.click();
+      return;
+    }
+
+    // 6. Toggle Snap point from inside the drawer
+    if (e.target.closest('#drawerToggleSnapInside')) {
+      drawer.toggleSnapPoint();
+      return;
     }
   });
 
+  // Support Enter / Space key activation on product cards
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      const card = e.target.closest('.menu-item[data-item-id]');
+      const card = e.target.closest('.product-card[data-drawer-trigger]');
       if (card) {
         e.preventDefault();
         card.click();
@@ -503,17 +466,13 @@
     }
   });
 
+  // Handle form submission inside drawer
   document.addEventListener('submit', (e) => {
-    if (e.target && e.target.id === 'checkoutForm') {
+    if (e.target && e.target.id === 'drawerDemoForm') {
       e.preventDefault();
-      const name = document.getElementById('pickupNameInput')?.value.trim() || 'Guest';
-      orderBag.length = 0;
-      updateBagBadge();
-      drawer.close('order-submitted');
-      showToast(`Order reserved under ${name}. See you at the counter.`);
+      const studioName = document.getElementById('studioNameInput')?.value || 'Studio';
+      drawer.close('form-submit');
+      showToast(`🎧 Audition request received for ${studioName}!`);
     }
   });
-
-  renderMenu();
-  updateBagBadge();
 })();
