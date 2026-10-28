@@ -3,282 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0f19" />
-  <title>Aether Audio — Cross-Platform Adaptive Drawer Demo</title>
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <meta name="theme-color" content="#0c0e14" />
+  <title>Kurobi Kitchen — Craft Ramen, Bao &amp; Wood-Fired Small Plates</title>
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
-  <!-- App Wrapper (scales subtly on mobile when bottom sheet is open) -->
   <div class="app-shell" id="appShell">
-    
-    <!-- Top Live Status Bar / Adaptive Telemetry Strip -->
-    <div class="telemetry-bar" role="region" aria-label="Adaptive Presentation Status">
-      <div class="telemetry-bar__inner">
-        <div class="telemetry-badge" id="modeBadge">
-          <span class="status-dot" id="modeDot"></span>
-          <span id="modeLabel">Checking viewport...</span>
+    <!-- Top Restaurant Announcement Bar -->
+    <div class="top-bar">
+      <div class="container top-bar__inner">
+        <div class="top-bar__status">
+          <span class="status-dot"></span>
+          <span>Kitchen Open Today: 11:30 AM – 10:30 PM · 742 Mercer Ave</span>
         </div>
-        <div class="telemetry-metrics" id="telemetryMetrics" aria-live="polite">
-          <span>Viewport: <strong id="metricViewport">--</strong></span>
+        <div class="top-bar__links">
+          <span>Est. Pickup Time: <strong>15–20 mins</strong></span>
           <span class="divider">•</span>
-          <span>Breakpoint: <strong>768px</strong></span>
-          <span class="divider hide-xs">•</span>
-          <span class="hide-xs">Drag ΔY: <strong id="metricDeltaY">0px</strong></span>
-          <span class="divider hide-xs">•</span>
-          <span class="hide-xs">Velocity: <strong id="metricVelocity">0.00 px/ms</strong></span>
-        </div>
-        <div class="telemetry-actions">
-          <button type="button" class="chip-btn" id="forceMobileToggle" title="Preview Mobile Bottom Sheet behaviour even on a wide desktop screen">
-            <span class="chip-btn__icon">📱</span>
-            <span id="forceMobileText">Simulate Mobile (&lt;768px)</span>
+          <button type="button" class="top-bar__link" data-drawer-trigger="hours">
+            Hours &amp; Delivery Zones
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Main Navigation -->
+    <!-- Header Navigation -->
     <header class="site-header">
       <div class="container header-inner">
         <a href="#" class="brand">
-          <span class="brand-mark" aria-hidden="true">✦</span>
-          <span class="brand-text">Aether<span class="brand-accent">Studio</span></span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 11h16a1 1 0 0 1 1 1v.5a8.5 8.5 0 0 1-17 0V12a1 1 0 0 1 1-1Z"></path>
+              <path d="M8 21h8"></path>
+              <path d="M7 7l10-3"></path>
+              <path d="M7 4l10 3"></path>
+            </svg>
+          </span>
+          <span class="brand-text">Kurobi<span class="brand-accent">Kitchen</span></span>
         </a>
+
         <nav class="site-nav" aria-label="Primary Navigation">
-          <a href="#products" class="nav-link">Hardware</a>
-          <a href="#how-it-works" class="nav-link">How It Works</a>
-          <button type="button" class="btn btn-secondary btn-sm" data-drawer-trigger="quick-settings">
-            <span>⚙️</span> Drawer Settings
+          <a href="#menu" class="nav-link">Full Menu</a>
+          <a href="#story" class="nav-link">Our Craft</a>
+          <button type="button" class="btn btn-secondary btn-sm" data-drawer-trigger="reservation">
+            Book a Table
           </button>
-          <button type="button" class="btn btn-primary btn-sm" data-drawer-trigger="Preorder">
-            <span>⚡</span> Reserve Unit
+          <button type="button" class="btn btn-primary btn-sm" id="openOrderBtn" data-drawer-trigger="cart">
+            <span>Your Order</span>
+            <span class="cart-badge" id="cartCountBadge">2</span>
           </button>
         </nav>
       </div>
     </header>
 
-    <!-- Hero Section -->
     <main>
+      <!-- Hero Section -->
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-copy">
             <div class="eyebrow-pill">
-              <span class="eyebrow-pill__tag">NATIVE WEB APIs</span>
-              <span>Zero Frameworks • Desktop Modal ≥768px • Mobile Sheet &lt;768px</span>
+              <span class="eyebrow-pill__tag">HOUSE SPECIALTIES</span>
+              <span>18-Hour Simmered Broths · Hand-Cut Alkaline Noodles</span>
             </div>
             <h1 class="hero-title">
-              Spatial Acoustic Hardware, <span class="text-gradient">Engineered for Touch &amp; Desktop.</span>
+              Rich, slow-simmered bowls <span class="text-gradient">made from scratch every morning.</span>
             </h1>
             <p class="hero-subtitle">
-              Experience our flagship Cross-Platform Adaptive Drawer. On <strong>Desktop (≥768px)</strong>, it presents as a centered modal dialog with outside-backdrop click dismissal. On <strong>Mobile (&lt;768px)</strong>, it slides up as a physics-driven interactive bottom sheet with 1:1 finger tracking, velocity flick dismissal, snap points, and nested scroll handoff.
+              From charred black-garlic tonkotsu and spicy sesame tantanmen to crispy pork belly bao and binchotan-grilled skewers. Customize your bowl for express counter pickup or local delivery.
             </p>
             <div class="hero-cta-group">
-              <button type="button" class="btn btn-primary btn-lg" data-drawer-trigger="product-detail" data-product-id="aether-one">
-                <span>🎧</span> Open Interactive Drawer
+              <button type="button" class="btn btn-primary btn-lg" data-drawer-trigger="dish" data-dish-id="black-garlic-tonkotsu">
+                Order Signature Tonkotsu
               </button>
-              <button type="button" class="btn btn-secondary btn-lg" data-drawer-trigger="feedback-form">
-                <span>⌨️</span> Test Keyboard &amp; Inputs
-              </button>
-              <button type="button" class="btn btn-ghost btn-lg" data-drawer-trigger="architecture">
-                <span>📐</span> View Code &amp; Physics
+              <button type="button" class="btn btn-secondary btn-lg" data-drawer-trigger="reservation">
+                Reserve Dining Room
               </button>
             </div>
 
-            <!-- Quick Feature Checklist -->
             <div class="feature-strip">
               <div class="feature-item">
-                <span class="feature-check">✓</span>
+                <span class="feature-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
                 <div>
-                  <strong>Desktop (≥768px)</strong>
-                  <p>Centered modal, backdrop click &amp; Esc to dismiss</p>
+                  <strong>House-Milled Noodles</strong>
+                  <p>Freshly rolled each morning using organic spring wheat</p>
                 </div>
               </div>
               <div class="feature-item">
-                <span class="feature-check">✓</span>
+                <span class="feature-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
                 <div>
-                  <strong>Mobile (&lt;768px)</strong>
-                  <p>Bottom sheet with swipe-to-dismiss, snap points &amp; rubber-banding</p>
+                  <strong>Binchotan Charcoal Grill</strong>
+                  <p>Chashu and skewers seared over Japanese white oak</p>
                 </div>
               </div>
               <div class="feature-item">
-                <span class="feature-check">✓</span>
+                <span class="feature-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
                 <div>
-                  <strong>100% Native APIs</strong>
-                  <p><code>&lt;dialog&gt;</code>, <code>PointerEvent</code>, <code>matchMedia</code>, <code>visualViewport</code></p>
+                  <strong>Broth Packed Separately</strong>
+                  <p>Takeout orders stay piping hot with noodles never soggy</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Interactive Device Preview Card -->
+          <!-- Featured Chef's Dish Card -->
           <div class="hero-visual">
-            <div class="device-showcase-card">
-              <div class="showcase-header">
-                <span class="showcase-title">Live Adaptive Behavior Preview</span>
-                <span class="showcase-pill" id="showcaseActiveMode">Auto-Detect</span>
+            <div class="featured-dish-card" data-drawer-trigger="dish" data-dish-id="black-garlic-tonkotsu" tabindex="0" role="button" aria-label="Customize Black Garlic Tonkotsu Ramen">
+              <div class="featured-dish__art art-ember">
+                <span class="dish-tag">Chef's Signature</span>
+                <span class="dish-price-pill">$18.50</span>
+                <!-- Custom SVG Ramen Bowl Illustration -->
+                <svg class="dish-svg" viewBox="0 0 320 180" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="brothGlow" cx="50%" cy="45%" r="55%">
+                      <stop offset="0%" stop-color="#f97316" stop-opacity="0.38" />
+                      <stop offset="100%" stop-color="#0c0e14" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="320" height="180" fill="url(#brothGlow)" />
+                  <!-- Chopsticks -->
+                  <line x1="65" y1="36" x2="255" y2="18" stroke="#d97706" stroke-width="4" stroke-linecap="round" />
+                  <line x1="65" y1="46" x2="255" y2="34" stroke="#b45309" stroke-width="4" stroke-linecap="round" />
+                  <!-- Bowl Rim & Broth -->
+                  <ellipse cx="160" cy="96" rx="76" ry="26" fill="#fde68a" fill-opacity="0.18" stroke="#f59e0b" stroke-width="2" />
+                  <ellipse cx="160" cy="98" rx="68" ry="21" fill="#7c2d12" />
+                  <!-- Noodle Waves -->
+                  <path d="M112 98 Q128 88 144 98 T176 98 T208 98" fill="none" stroke="#fcd34d" stroke-width="3" stroke-linecap="round" />
+                  <path d="M118 105 Q134 95 150 105 T182 105" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" />
+                  <!-- Ajitama Egg Halves -->
+                  <ellipse cx="136" cy="92" rx="14" ry="9" fill="#fef3c7" />
+                  <ellipse cx="136" cy="92" rx="7" ry="5" fill="#ea580c" />
+                  <!-- Nori Sheets -->
+                  <rect x="178" y="66" width="20" height="26" rx="2" transform="rotate(14 178 66)" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+                  <!-- Bowl Body -->
+                  <path d="M84 96 C88 146, 232 146, 236 96 Z" fill="#18181b" stroke="#3f3f46" stroke-width="2" />
+                  <rect x="132" y="138" width="56" height="8" rx="3" fill="#27272a" />
+                </svg>
               </div>
-              <div class="dual-device-illustration" aria-hidden="true">
-                <!-- Desktop Mockup -->
-                <div class="mini-device mini-desktop" id="miniDesktopCard">
-                  <div class="mini-device__bar">
-                    <span></span><span></span><span></span>
-                    <small>Desktop ≥ 768px</small>
-                  </div>
-                  <div class="mini-device__screen">
-                    <div class="mini-backdrop">
-                      <div class="mini-modal">
-                        <div class="mini-modal__close">×</div>
-                        <div class="mini-block"></div>
-                        <div class="mini-block short"></div>
-                      </div>
-                    </div>
-                  </div>
+              <div class="featured-dish__body">
+                <div class="featured-dish__meta">
+                  <span>18-Hr Pork Bone Broth · Roasted Mayu Oil</span>
+                  <span class="rating-badge">4.9 ★ (340+)</span>
                 </div>
-                <!-- Mobile Mockup -->
-                <div class="mini-device mini-mobile" id="miniMobileCard">
-                  <div class="mini-device__bar">
-                    <small>Mobile &lt; 768px</small>
-                  </div>
-                  <div class="mini-device__screen">
-                    <div class="mini-backdrop mobile-align">
-                      <div class="mini-sheet">
-                        <div class="mini-handle"></div>
-                        <div class="mini-block"></div>
-                        <div class="mini-block"></div>
-                        <div class="mini-block short"></div>
-                      </div>
-                    </div>
-                  </div>
+                <h2>Black Garlic Tonkotsu Deluxe</h2>
+                <p>
+                  Rich heritage pork broth layered with house-charred black garlic oil, torch-seared pork belly chashu, 6-minute soy-marinated egg, wood ear mushrooms, and scallions.
+                </p>
+                <div class="featured-dish__specs">
+                  <span>740 kcal</span>
+                  <span>•</span>
+                  <span>42g Protein</span>
+                  <span>•</span>
+                  <span>Mild Spice</span>
                 </div>
-              </div>
-              <p class="showcase-caption">
-                Resize your browser window across <strong>768px</strong> (even while the drawer is open!) or click any button below to test the adaptive transition live.
-              </p>
-              <div class="showcase-actions">
-                <button type="button" class="btn btn-primary btn-block" data-drawer-trigger="product-detail" data-product-id="aether-one">
-                  Launch Adaptive Drawer Now
-                </button>
+                <div class="featured-dish__cta">
+                  <span class="btn btn-primary btn-block">Customize Toppings &amp; Add to Order</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Interactive Product Lineup Section (Made-up Website Content) -->
-      <section class="section" id="products">
+      <!-- Menu Section -->
+      <section class="section" id="menu">
         <div class="container">
           <div class="section-header">
             <div>
-              <span class="section-kicker">INTERACTIVE SHOWCASE</span>
-              <h2 class="section-title">Explore the Aether Lineup</h2>
-              <p class="section-desc">Click any product card to open its full specification &amp; configuration drawer.</p>
+              <span class="section-kicker">FRESH DAILY MENU</span>
+              <h2 class="section-title">Bowls, Small Plates &amp; Drinks</h2>
+              <p class="section-desc">Click any dish below to customize noodle firmness, spice level, and extra toppings.</p>
+            </div>
+
+            <div class="category-tabs" role="tablist" aria-label="Filter Menu by Category">
+              <button type="button" class="tab-btn is-active" data-category="all">All Dishes</button>
+              <button type="button" class="tab-btn" data-category="ramen">Signature Ramen</button>
+              <button type="button" class="tab-btn" data-category="plates">Small Plates &amp; Bao</button>
+              <button type="button" class="tab-btn" data-category="drinks">Drinks &amp; Sweet</button>
             </div>
           </div>
 
-          <div class="product-grid">
-            <!-- Card 1 -->
-            <article class="product-card" data-drawer-trigger="product-detail" data-product-id="aether-one" tabindex="0" role="button" aria-label="Inspect Aether One Planar Headphones">
-              <div class="product-card__visual gradient-indigo">
-                <span class="product-badge">Flagship</span>
-                <div class="product-emoji" aria-hidden="true">🎧</div>
-              </div>
-              <div class="product-card__body">
-                <div class="product-card__meta">
-                  <span>Open-Back Planar</span>
-                  <span class="price">$549</span>
-                </div>
-                <h3>Aether One Studio</h3>
-                <p>Ultra-low distortion 98mm planar magnetic drivers with CNC-machined magnesium housing and lossless spatial telemetry.</p>
-                <div class="product-card__footer">
-                  <span class="link-cta">Inspect Specs &amp; Audio Curve →</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 2 -->
-            <article class="product-card" data-drawer-trigger="product-detail" data-product-id="pulse-dac" tabindex="0" role="button" aria-label="Inspect Pulse Reference DAC">
-              <div class="product-card__visual gradient-emerald">
-                <span class="product-badge">New Release</span>
-                <div class="product-emoji" aria-hidden="true">🎛️</div>
-              </div>
-              <div class="product-card__body">
-                <div class="product-card__meta">
-                  <span>Desktop / Portable DAC</span>
-                  <span class="price">$329</span>
-                </div>
-                <h3>Pulse R2R Reference DAC</h3>
-                <p>Discrete 24-bit resistor ladder architecture with balanced 4.4mm output, OLED spectrum meter, and zero-jitter USB-C clock.</p>
-                <div class="product-card__footer">
-                  <span class="link-cta">Configure I/O &amp; Specs →</span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Card 3 -->
-            <article class="product-card" data-drawer-trigger="product-detail" data-product-id="monolith-speaker" tabindex="0" role="button" aria-label="Inspect Monolith Nearfield Monitors">
-              <div class="product-card__visual gradient-amber">
-                <span class="product-badge">Studio Reference</span>
-                <div class="product-emoji" aria-hidden="true">🔊</div>
-              </div>
-              <div class="product-card__body">
-                <div class="product-card__meta">
-                  <span>Active Nearfield Pair</span>
-                  <span class="price">$899</span>
-                </div>
-                <h3>Monolith Air Monitors</h3>
-                <p>Beryllium ribbon tweeters paired with room-calibrating DSP and cardioid bass dispersion for untreated mixing spaces.</p>
-                <div class="product-card__footer">
-                  <span class="link-cta">View Acoustic Profile →</span>
-                </div>
-              </div>
-            </article>
+          <div class="product-grid" id="menuGrid">
+            <!-- Dynamically rendered by app.js -->
           </div>
         </div>
       </section>
 
-      <!-- Technical Implementation Explanation Section -->
-      <section class="section section-alt" id="how-it-works">
+      <!-- Kitchen Story / Standards Section -->
+      <section class="section section-alt" id="story">
         <div class="container">
           <div class="section-header">
             <div>
-              <span class="section-kicker">ENGINEERING BREAKDOWN</span>
-              <h2 class="section-title">How the Cross-Platform Drawer Works</h2>
-              <p class="section-desc">Built from scratch using 100% native Web APIs without React, Vue, jQuery, Tailwind, or animation libraries.</p>
+              <span class="section-kicker">INSIDE THE KITCHEN</span>
+              <h2 class="section-title">How We Build Every Bowl</h2>
+              <p class="section-desc">No shortcuts, concentrates, or pre-made noodles—everything is prepped in-house from raw ingredients.</p>
             </div>
-            <button type="button" class="btn btn-secondary" data-drawer-trigger="architecture">
-              Open Deep-Dive in Drawer
+            <button type="button" class="btn btn-secondary" data-drawer-trigger="hours">
+              View Location &amp; Hours
             </button>
           </div>
 
           <div class="explainer-grid">
             <div class="explainer-card">
               <div class="explainer-num">01</div>
-              <h3>Adaptive Breakpoint Engine (<code>matchMedia</code> + CSS)</h3>
+              <h3>The 18-Hour Broth</h3>
               <p>
-                Uses CSS media queries (<code>@media (min-width: 768px)</code>) paired with <code>window.matchMedia('(min-width: 768px)')</code> event listeners. At <strong>≥768px</strong>, the container centers the surface as a modal dialog and disables vertical drag gestures. Below <strong>768px</strong>, it docks to the bottom edge as an interactive sheet with a grab handle and snap points.
+                Our stock kettles simmer continuously for 18 hours using pasture-raised pork femurs, roasted chicken frames, dried kelp, and shiitake caps for deep natural umami.
               </p>
             </div>
 
             <div class="explainer-card">
               <div class="explainer-num">02</div>
-              <h3>Unified Pointer Gesture &amp; Velocity Physics</h3>
+              <h3>Custom Noodle Room</h3>
               <p>
-                Tracks gestures via native <code>pointerdown</code>, <code>pointermove</code>, and <code>pointerup</code> events with <code>setPointerCapture</code>. A sliding 80ms sample ring buffer computes instantaneous flick velocity (<code>px/ms</code>). Releasing with velocity <code>&gt; 0.45 px/ms</code> or dragging past 35% of sheet height dismisses the sheet; pulling above the top limit applies hyperbolic rubber-band damping.
+                We blend high-protein hard red spring wheat with kansui mineral salts to roll springy, toothsome noodles tailored to hold up in rich hot broth.
               </p>
             </div>
 
             <div class="explainer-card">
               <div class="explainer-num">03</div>
-              <h3>Nested Scroll-to-Drag Handoff</h3>
+              <h3>Aged Tare &amp; Aroma Oils</h3>
               <p>
-                When dragging inside the scrollable content area on mobile, the drawer inspects <code>bodyEl.scrollTop</code>. If <code>scrollTop &gt; 0</code>, native content scrolling runs uninterrupted. Once <code>scrollTop === 0</code> and the user pulls downward (<code>ΔY &gt; 0</code>), control seamlessly hands off to translating the bottom sheet without triggering browser pull-to-refresh.
+                Each bowl starts with our 30-day aged shoyu or roasted white miso tare, finished with house-infused charred garlic mayu or Sichuan chili crisp.
               </p>
             </div>
 
             <div class="explainer-card">
               <div class="explainer-num">04</div>
-              <h3>Native <code>&lt;dialog&gt;</code>, Safe Areas &amp; <code>visualViewport</code></h3>
+              <h3>Plant-Based Options</h3>
               <p>
-                Built on the native HTML5 <code>&lt;dialog&gt;</code> element (<code>showModal()</code>) for top-layer promotion, focus trapping, and <code>Escape</code> key interception. Uses <code>100dvh</code>, <code>env(safe-area-inset-bottom)</code> for iPhone home indicators, and <code>window.visualViewport</code> listeners so mobile on-screen keyboards never obscure focused inputs.
+                Our Creamy Sesame Mushroom Ramen uses a velvety cashew, roasted tahini, and kombu broth that rivals traditional pork tonkotsu in richness.
               </p>
             </div>
           </div>
@@ -288,11 +246,11 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>AetherStudio • Cross-Platform Drawer Exercise (Pure HTML5 + CSS3 + Vanilla JS)</p>
+        <p>Kurobi Kitchen · 742 Mercer Ave · Dine-In, Counter Pickup &amp; Local Delivery</p>
         <div class="footer-links">
-          <button type="button" class="link-btn" data-drawer-trigger="product-detail" data-product-id="aether-one">Product Drawer</button>
-          <button type="button" class="link-btn" data-drawer-trigger="feedback-form">Input / Keyboard Test</button>
-          <button type="button" class="link-btn" data-drawer-trigger="architecture">Technical Docs</button>
+          <button type="button" class="link-btn" data-drawer-trigger="hours">Hours &amp; Location</button>
+          <button type="button" class="link-btn" data-drawer-trigger="reservation">Book a Table</button>
+          <button type="button" class="link-btn" data-drawer-trigger="cart">View Current Order</button>
         </div>
       </div>
     </footer>
@@ -309,14 +267,10 @@
     aria-labelledby="drawerTitle"
     aria-describedby="drawerSubtitle"
   >
-    <!-- Backdrop Layer (Clicking outside dismisses on both Desktop & Mobile) -->
     <div class="cp-drawer__backdrop" id="drawerBackdrop" data-drawer-dismiss="backdrop"></div>
 
-    <!-- Layout Positioner -->
     <div class="cp-drawer__positioner" id="drawerPositioner">
-      <!-- Interactive Surface (Modal on Desktop >=768px, Bottom Sheet on Mobile <768px) -->
       <section class="cp-drawer__surface" id="drawerSurface" role="document">
-        
         <!-- Mobile Drag Handle / Grabber Pill (Visible on Mobile <768px) -->
         <div
           class="cp-drawer__handle-bar"
@@ -327,21 +281,20 @@
           <div class="cp-drawer__pill"></div>
         </div>
 
-        <!-- Header -->
         <header class="cp-drawer__header" id="drawerHeader">
           <div class="cp-drawer__title-group">
-            <span class="cp-drawer__mode-tag" id="drawerModeTag">Adaptive Mode</span>
-            <h2 class="cp-drawer__title" id="drawerTitle">Drawer Title</h2>
-            <p class="cp-drawer__subtitle" id="drawerSubtitle">Adaptive presentation container</p>
+            <span class="cp-drawer__mode-tag" id="drawerCategoryTag">Menu Item</span>
+            <h2 class="cp-drawer__title" id="drawerTitle">Dish Name</h2>
+            <p class="cp-drawer__subtitle" id="drawerSubtitle">Customize your order</p>
           </div>
           <div class="cp-drawer__header-actions">
-            <!-- Mobile Snap Point Toggle Button (Visible in Mobile Sheet Mode) -->
+            <!-- Mobile Snap Point Toggle Button -->
             <button
               type="button"
               class="cp-drawer__icon-btn cp-drawer__snap-btn"
               id="drawerSnapBtn"
               aria-label="Toggle full height"
-              title="Toggle sheet snap height"
+              title="Toggle sheet height"
             >
               <span id="drawerSnapIcon">⤢</span>
             </button>
@@ -361,23 +314,16 @@
           </div>
         </header>
 
-        <!-- Scrollable Content Body -->
-        <div class="cp-drawer__body" id="drawerBody" tabindex="-1">
-          <!-- Dynamically populated by app.js -->
-        </div>
+        <div class="cp-drawer__body" id="drawerBody" tabindex="-1"></div>
 
-        <!-- Sticky Footer -->
-        <footer class="cp-drawer__footer" id="drawerFooter">
-          <!-- Dynamically populated by app.js -->
-        </footer>
+        <footer class="cp-drawer__footer" id="drawerFooter"></footer>
       </section>
     </div>
   </dialog>
 
-  <!-- Toast Notification for Demo Actions -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
-  <script src="drawer.js?v=5"></script>
-  <script src="app.js?v=5"></script>
+  <script src="drawer.js?v=6"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
